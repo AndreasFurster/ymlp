@@ -30,6 +30,7 @@ if (!in_array($lang, $supportedLanguages)) {
 		<script src="/js/controllers.js"></script>
 	</head>
 	<body>
-		<div ng-view></div>
+		<aside class="col-md-3"></aside>
+		<main class="col-md-9" ng-view></main>
 	</body>
 </html>
