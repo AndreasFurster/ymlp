@@ -1,7 +1,99 @@
+@import url('http://bootswatch.com/cosmo/variables.less');
+
 html, body{
 	height: 100%;
 }
 
 body > aside{
 	height: 100%;
+	float: left;
+	width: 200px;
+	padding-left: 8px;
+
+
+	nav{
+		margin-top: 40px;
+	
+		ul{
+			list-style: none;
+			padding: 0;
+		
+			a{
+				display: block;
+				width: 100%;
+				text-align: center;
+				font-size: 17px;
+
+				i.fa{
+					width: 100%;
+					font-size: 5em;
+				}
+
+				span{
+					opacity: 0;
+					.transitions(opacity .25s linear);
+				}
+			}
+
+			a,
+			a:hover,
+			a:active,
+			a:visited{
+				color: inherit;
+			}
+
+			li.active a{
+				color: @brand-primary;
+				background-color: @body-bg;
+			}
+
+			li{
+				padding-top: 20px;
+				padding-bottom: 20px;
+			}
+		}
+	}
 }
+
+aside:hover li span{
+	opacity: 1;
+}
+
+
+body > main{
+	display: block;
+	float: left;
+	width: calc(100% - 300px);
+	padding: 40px 60px;
+}
+
+#login-overlay{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: @brand-primary;
+
+	form{
+		  margin-top: 25vh;
+	}
+
+	h1{
+		color: @body-bg;
+	}
+
+	label{
+		color: @body-bg;
+		font-size: 1.3em;
+		font-weight: normal;
+	}
+}
+
+.transitions(...) {
+	-webkit-transition: @arguments;
+	-moz-transition: @arguments;
+	-o-transition: @arguments;
+	transition: @arguments;
+}
+

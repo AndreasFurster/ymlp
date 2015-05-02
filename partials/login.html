@@ -1,1 +1,14 @@
-<h1>Login!</h1>
+<div id="login-overlay" ng-controller="login">
+	<form class="col-sm-4 col-sm-offset-4 ">
+		<h1>Login</h1>
+		<div class="form-group" ng-class="{'has-error' : usernameError }">
+			<label class="control-label" for="username">Username</label>
+			<input type="text" class="form-control" id="username" ng-model="username">
+		</div>
+		<div class="form-group" ng-class="{'has-error' : apiKeyError }">
+			<label class="control-label" for="api-key">API key</label>
+			<input type="text" class="form-control" id="api-key" ng-model="apiKey">
+		</div>
+		<button class="btn btn-default" ng-click="authenticate()">Login</button>
+	</form>
+</div>
