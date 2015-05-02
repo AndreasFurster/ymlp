@@ -1,10 +1,8 @@
 angular.module('controllers', [])
 
-.controller('login', ['$scope', '$http',
-	function ($scope, $http) {
+.controller('login', ['$scope', '$location', 'Authentication',
+	function ($scope, $location, Authentication) {
 		$scope.authenticate = function(){
-			console.log($scope);
-
 			var username = $scope.username;
 			var key = $scope.apiKey;
 
@@ -16,10 +14,13 @@ angular.module('controllers', [])
 			if ($scope.hasError){
 				return;	
 			}
-
-			// Do ping to the API to check
-
-			console.log($scope)
+			
+			if (Authentication.authenticate(username, key)){
+				$location.path('/start');
+			}
+			else{
+				$scope.usernameError = $scope.apiKeyError = $scope.hasError = true;
+			}
 		}
 	}])
 

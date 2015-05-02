@@ -34,7 +34,14 @@ angular.module('ymlp', [
     	if($location.path() == '/login')
     		return;
 
-        if (!Authentication.isAuthenticated()) {
+    	var authenticated = Authentication.isAuthenticated();
+
+    	if (authenticated && $location.path() == '/login') {
+    		event.preventDefault();
+            $location.path('/start');
+    	}
+
+        if (!authenticated) {
             event.preventDefault();
             $location.path('/login');
         }
@@ -42,19 +49,24 @@ angular.module('ymlp', [
 }])
 
 .factory('Authentication', function(){
-	var user;
-
 	return{
-		setUser : function(aUser){
-			user = aUser;
+		authenticate : function(username, key){
+			if (this.ping(username, key)) {
+				window.sessionStorage.setItem("username", username);
+				window.sessionStorage.setItem("apiKey", key);
+
+				return true;
+			}
 		},
 		isAuthenticated : function(){
-			if (window.sessionStorage.getItem('token') == null || window.sessionStorage.getItem('username') == null)
+			if (window.sessionStorage.getItem('username') == null || window.sessionStorage.getItem('apiKey') == null)
 				return false;
 
-			// Do ping to API
-
-			return true;
+			return this.ping(window.sessionStorage.getItem('username'), window.sessionStorage.getItem('apiKey'));
+		},
+		ping : function(username, key){
+			// TODO: Ping the API
+			return username == key;
 		}
 	}
 })
