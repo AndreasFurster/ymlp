@@ -17,8 +17,15 @@
 <!doctype html>
 <html ng-app="ymlp">
 	<head>
-		<title>Ylmp</title>
+		<title>Ymlp</title>
 		<meta charset="UTF-8">
+
+		<style>
+			[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+			  display: none !important;
+			}
+		</style>
+
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="//bootswatch.com/cosmo/bootstrap.min.css">
 		<link rel="stylesheet/less" type="text/css" href="//bootswatch.com/cosmo/variables.less" />
@@ -33,7 +40,7 @@
 		<script src="js/controllers.js"></script>
 		<script src="js/modules/auto-active.js"></script>
 	</head>
-	<body>
+	<body ng-cloak>
 		<aside class="bg-primary">
 			<h1>Ymlp</h1>
 			<nav>

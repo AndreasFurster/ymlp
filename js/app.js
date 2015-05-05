@@ -46,28 +46,45 @@ angular.module('ymlp', [
             $location.path('/login');
         }
     });
+
+    $rootScope.$on('$routeChangeSuccess', function (event) {
+    	
+    });
 }])
 
-.factory('Authentication', function(){
-	return{
-		authenticate : function(username, key){
-			if (this.ping(username, key)) {
-				window.sessionStorage.setItem("username", username);
-				window.sessionStorage.setItem("apiKey", key);
+.factory('Authentication', 
+	function($http){
+		return {
+			authenticate : function(username, key){
+				if (this.ping(username, key)) {
+					window.sessionStorage.setItem("username", username);
+					window.sessionStorage.setItem("apiKey", key);
 
-				return true;
+					return true;
+				}
+			},
+			isAuthenticated : function(){
+				if (window.sessionStorage.getItem('username') == null || window.sessionStorage.getItem('apiKey') == null)
+					return false;
+
+				return this.ping(window.sessionStorage.getItem('username'), window.sessionStorage.getItem('apiKey'));
+			},
+			ping : function(username, key){
+				$http.get('inc/cors-proxy.php', {
+					params : {
+						csurl : 'https://www.ymlp.com/api/Ping',
+						username : username,
+						key : key,
+						output : 'json'
+					}
+				})
+				.success(function(data){
+					console.log(data);
+				});
+
+				return username == key;
 			}
-		},
-		isAuthenticated : function(){
-			if (window.sessionStorage.getItem('username') == null || window.sessionStorage.getItem('apiKey') == null)
-				return false;
-
-			return this.ping(window.sessionStorage.getItem('username'), window.sessionStorage.getItem('apiKey'));
-		},
-		ping : function(username, key){
-			// TODO: Ping the API
-			return username == key;
 		}
 	}
-})
+)
 
